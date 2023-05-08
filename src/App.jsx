@@ -1,37 +1,60 @@
-// import { Canvas } from '@react-three/fiber';
-// import { OrbitControls } from '@react-three/drei'
-// import Box from './Box';
-
-// export default function App() {
-//   return (
-//     <Canvas camera={{ position: [0, 0, 2] }}>
-//       <Box position={[-0.75, 0, 0]} name='A' />
-//       <Box position={[0.75, 0, 0]} name='B' />
-//       <OrbitControls />
-//     </Canvas>
-//   );
-// }
-
+import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Polyhedron from './Polyhedron';
-import * as THREE from 'three';
-import { OrbitControls, Stats } from '@react-three/drei';
+import { useGLTF, OrbitControls, Environment, Stats, Html } from '@react-three/drei';
+import { useControls } from 'leva';
+import Models from './models';
+
+function Model({ url }) {
+  const { scene } = useGLTF(url);
+  const [cache, setCache] = useState({});
+
+  if (!cache[url]) {
+    const annotations = [];
+
+    scene.traverse((o) => {
+      if (o.userData.prop) {
+        annotations.push(
+          <Html
+            occlude
+            transform
+            key={o.uuid}
+            position={[o.position.x, o.position.y, o.position.z]}
+            distanceFactor={0.25}
+          >
+            <div className='annotation'>{o.userData.prop}</div>
+          </Html>
+        );
+      }
+    });
+
+    console.log('Caching JSX for url ' + url);
+    setCache({
+      ...cache,
+      [url]: <primitive object={scene}>{annotations}</primitive>,
+    });
+  }
+  return cache[url];
+}
 
 export default function App() {
-  const polyhedron = [
-    new THREE.BoxGeometry(),
-    new THREE.SphereGeometry(0.785398),
-    new THREE.DodecahedronGeometry(0.785398),
-  ];
+  const { model } = useControls({
+    model: {
+      value: 'hammer',
+      options: Object.keys(Models),
+    },
+  });
 
   return (
-    <Canvas camera={{ position: [0, 0, 3] }}>
-      <Polyhedron position={[-0.75, -0.75, 0]} polyhedron={polyhedron} />
-      <Polyhedron position={[0.75, -0.75, 0]} polyhedron={polyhedron} />
-      <Polyhedron position={[-0.75, 0.75, 0]} polyhedron={polyhedron} />
-      <Polyhedron position={[0.75, 0.75, 0]} polyhedron={polyhedron} />
-      <OrbitControls />
-      <Stats />
-    </Canvas>
+    <>
+      <Canvas camera={{ position: [0, 0, -0.2], near: 0.025 }}>
+        <Environment files='./img/workshop_1k.hdr' background />
+        <group>
+          <Model url={Models[model]} />
+        </group>
+        <OrbitControls autoRotate />
+        <Stats />
+      </Canvas>
+      <span id='info'>The {model.replace(/([A-Z])/g, ' $1').toLowerCase()} is selected.</span>
+    </>
   );
 }
