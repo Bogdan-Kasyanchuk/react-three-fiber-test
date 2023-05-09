@@ -1,24 +1,12 @@
-import { useRef, useState, useEffect } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useBox } from '@react-three/cannon';
 
-export default function Box(props) {
-  const ref = useRef();
-  const [rotate, setRotate] = useState(false);
-
-  useEffect(() => {
-    console.log(ref.current.geometry.uuid);
-  });
-
-  useFrame((_, delta) => {
-    ref.current.rotation.x += delta;
-    ref.current.rotation.y += 0.5 * delta;
-  });
+export default function Box({ position, args, texture }) {
+  const [ref] = useBox(() => ({ args, mass: 1, position }));
 
   return (
-    <mesh {...props} ref={ref} onPointerDown={() => setRotate(!rotate)}>
-      {rotate ? <boxGeometry /> : <sphereGeometry args={[0.7, 16, 16]} />}
-
-      <meshBasicMaterial color={'lime'} wireframe />
+    <mesh ref={ref}>
+      <boxGeometry args={args} />
+      <meshStandardMaterial map={texture} />
     </mesh>
   );
 }
