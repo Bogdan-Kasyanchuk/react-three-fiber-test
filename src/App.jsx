@@ -28,18 +28,16 @@ export default function App() {
         <Sphere position={[-0.75, 20, 0]} args={[1, 16, 16]} texture={stoneWhite} />
         <Sphere position={[-1.5, 25, 0]} args={[1.5, 16, 16]} texture={stoneViolet} />
         <Floor position={[0, -39, 0]} texture={wood} />
-        <Side
-          position={[0, -5, 0]}
-          args={[20, 20]}
-          rotation={[-Math.PI / 2.5, 0, 0]}
-          texture={wood}
-        />
-        <Side
+        <Side position={[0, -37, -40]} args={[100, 5]} rotation={[0, 0, 0]} texture={stoneRed} />
+        <Side position={[0, -37, 40]} args={[100, 5]} rotation={[3, 0, 0]} texture={stoneRed} />
+        <Side position={[-40, -37, 0]} args={[100, 5]} rotation={[0, 1.55, 0]} texture={stoneRed} />
+        <Side position={[40, -37, 0]} args={[100, 5]} rotation={[0, -1.55, 0]} texture={stoneRed} />
+        {/* <Side
           position={[0, -5, -10]}
           args={[20, 20]}
           rotation={[-Math.PI / 2.5, 0, 0]}
           texture={wood}
-        />
+        /> */}
       </Physics>
       <axesHelper args={[10]} />
       <gridHelper position={[0, -40, 0]} args={[110, 110, 'pink', 'gray']} />
