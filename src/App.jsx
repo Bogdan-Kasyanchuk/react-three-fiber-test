@@ -18,24 +18,30 @@ export default function App() {
   ]);
 
   return (
-    <Canvas camera={{ position: [5, 20, 20] }}>
+    <Canvas camera={{ position: [100, 50, 50] }}>
       <Physics>
         {/* <directionalLight position={[1, 1, 1]} /> */}
         <ambientLight intensity={0.5} />
-        <Box position={[0, 5, 0]} args={[2, 1, 2]} texture={crate} />
-        <Sphere position={[0.75, 10, 0]} args={[1, 16, 16]} texture={stoneGray} />
-        <Sphere position={[1.5, 15, 0]} args={[1.25, 16, 16]} texture={stoneRed} />
-        <Sphere position={[-0.75, 20, 0]} args={[1, 16, 16]} texture={stoneWhite} />
-        <Sphere position={[-1.5, 25, 0]} args={[1.5, 16, 16]} texture={stoneViolet} />
+        <Box position={[0, 5, 0]} args={[2, 2, 2]} texture={crate} />
+        {/* <Sphere position={[0.75, 10, 0]} args={[1, 16, 16]} texture={stoneGray} /> */}
+        {/* <Sphere position={[1.5, 15, 0]} args={[1.25, 16, 16]} texture={stoneRed} /> */}
+        {/* <Sphere position={[-0.75, 20, 0]} args={[1, 16, 16]} texture={stoneWhite} /> */}
+        {/* <Sphere position={[-1.5, 50, -40]} args={[1.5, 16, 16]} texture={stoneViolet} /> */}
         <Floor position={[0, -39, 0]} texture={wood} />
-        <Side position={[0, -37, -40]} args={[100, 5]} rotation={[0, 0, 0]} texture={stoneRed} />
+        {/* <Side position={[0, -37, -40]} args={[100, 5]} rotation={[0, 0, 0]} texture={stoneRed} />
         <Side position={[0, -37, 40]} args={[100, 5]} rotation={[3, 0, 0]} texture={stoneRed} />
         <Side position={[-40, -37, 0]} args={[100, 5]} rotation={[0, 1.55, 0]} texture={stoneRed} />
-        <Side position={[40, -37, 0]} args={[100, 5]} rotation={[0, -1.55, 0]} texture={stoneRed} />
+        <Side position={[40, -37, 0]} args={[100, 5]} rotation={[0, -1.55, 0]} texture={stoneRed} /> */}
         {/* <Side
-          position={[0, -5, -10]}
-          args={[20, 20]}
+          position={[0, 0, -30]}
+          args={[20, 30]}
           rotation={[-Math.PI / 2.5, 0, 0]}
+          texture={wood}
+        /> */}
+        {/* <Side
+          position={[0, -10, 10]}
+          args={[20, 50]}
+          rotation={[Math.PI / 2.5, 0, 0]}
           texture={wood}
         /> */}
       </Physics>

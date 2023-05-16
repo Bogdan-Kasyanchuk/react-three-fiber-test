@@ -3,6 +3,7 @@ import * as THREE from 'three';
 
 export default function Side({ position, args, rotation, texture }) {
   const [ref] = usePlane(() => ({
+    mass: 0,
     rotation,
     position,
   }));
